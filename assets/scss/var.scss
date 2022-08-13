@@ -1,0 +1,168 @@
+// 标准字体12px
+$--font-size-base: 12px !default;
+// 大号字体
+$--badge-size: 18px !default;
+// 全局中部统一宽度
+$--base-width: 1180px;
+
+// 白色
+$--color-white: #FFFFFF !default;
+
+// Color
+$--color-black: #000000 !default;
+
+$--color-border: #dedede !default;
+
+$--color-danger: #EB3232 !default;
+
+$--color-warning: #E6A23C !default;
+
+// 主题色
+$--color-primary: #00ab84 !default;
+
+//
+$--color-warning-lighter: mix($--color-white, $--color-warning, 90%) !default;
+//
+$--color-danger-lighter: mix($--color-white, $--color-danger, 90%) !default;
+//
+$--color-info-lighter: #e6f4f9 !default;
+
+// 背景色
+$--color-gray: #F1F1F1 !default;
+
+$--color-backbgc: #EBF9F6 !default;
+$--color-backbgc1: #F6F9F9 !default;
+
+$--color-tag-bgc: #f0f0f0 !default;
+
+$animationDuration: .3s !default;
+
+// 文字颜色1
+
+$--color-text: #333 !default;
+
+// 文字颜色2
+$--color-text1: #666 !default;
+
+// 底部颜色
+$--color-footer-color: #777 !default;
+
+$--color-primary-bgc: #EBF9F6 !default;
+$--color-primary-bd: #4CC4A8 !default;
+$--color-primary-lighter: mix($--color-white, $--color-primary, 90%) !default;
+$--color-primary-lighte9: mix($--color-white, $--color-primary, 10%) !default;
+
+
+
+// Transition
+$--md-fade-transition: transform 300ms cubic-bezier(0.23, 1, 0.32, 1),
+opacity 300ms cubic-bezier(0.23, 1, 0.32, 1) !default;
+
+
+/**
+*
+*/
+.base-container {
+  width: $--base-width;
+  margin: 0 auto;
+}
+
+.link-style-base {
+  text-decoration: none;
+  outline: none;
+  color: $--color-text;
+}
+
+@mixin link-base($ishover) {
+  @extend .link-style-base;
+
+  @if $ishover==1 {
+    transition: all .3s;
+
+    &:hover {
+      color: $--color-primary;
+    }
+  }
+}
+
+/**
+* 溢出省略号
+* @param {Number} 行数
+*/
+@mixin ellipsis($rowCount: 1) {
+  @if $rowCount <=1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  @else {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: $rowCount;
+    -webkit-box-orient: vertical;
+  }
+}
+
+
+/**
+* 等边三角形
+* @param {String} 尺寸
+* @param {Color} 颜色
+* @param {String} 方向
+*/
+@mixin triangle($size: 5px, $color: rgba(0, 0, 0, 0.6), $dir: bottom) {
+  width: 0;
+  height: 0;
+  border-style: solid;
+
+  @if (bottom==$dir) {
+    border-width: $size $size 0 $size;
+    border-color: $color transparent transparent transparent;
+  }
+
+  @else if (top==$dir) {
+    border-width: 0 $size $size $size;
+    border-color: transparent transparent $color transparent;
+  }
+
+  @else if (right==$dir) {
+    border-width: $size 0 $size $size;
+    border-color: transparent transparent transparent $color;
+  }
+
+  @else if (left==$dir) {
+    border-width: $size $size $size 0;
+    border-color: transparent $color transparent transparent;
+  }
+}
+
+/**
+* border .5px
+**/
+@mixin border($color: $--color-text1) {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+  border-width: 1px;
+  border-style: solid;
+  border-color: $color;
+  transform: translate3d(0,0,0) scale(0.5, 0.5);
+  border-radius: 1px;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+
+@mixin when($state) {
+  @at-root {
+    &.#{'is-' + $state} {
+      @content;
+    }
+  }
+}
